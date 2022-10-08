@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UdecReportModelStoreContainer" CdmEntityContainer="UdecReportEntities">
+    <EntitySetMapping Name="ur_evento">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_evento">
+        <MappingFragment StoreEntitySet="ur_evento">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ur_tipoEvento">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_tipoEvento">
+        <MappingFragment StoreEntitySet="ur_tipoEvento">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idEvento" ColumnName="idEvento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

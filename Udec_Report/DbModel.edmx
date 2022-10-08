@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UdecReportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ur_evento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ur_tipoEvento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idEvento" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ur_tipoEvento_ur_evento">
+          <End Role="ur_evento" Type="Self.ur_evento" Multiplicity="1" />
+          <End Role="ur_tipoEvento" Type="Self.ur_tipoEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ur_evento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ur_tipoEvento">
+              <PropertyRef Name="idEvento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UdecReportModelStoreContainer">
+          <EntitySet Name="ur_evento" EntityType="Self.ur_evento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ur_tipoEvento" EntityType="Self.ur_tipoEvento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ur_tipoEvento_ur_evento" Association="Self.FK_ur_tipoEvento_ur_evento">
+            <End Role="ur_evento" EntitySet="ur_evento" />
+            <End Role="ur_tipoEvento" EntitySet="ur_tipoEvento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UdecReportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ur_evento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ur_tipoEvento" Relationship="Self.FK_ur_tipoEvento_ur_evento" FromRole="ur_evento" ToRole="ur_tipoEvento" />
+        </EntityType>
+        <EntityType Name="ur_tipoEvento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idEvento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ur_evento" Relationship="Self.FK_ur_tipoEvento_ur_evento" FromRole="ur_tipoEvento" ToRole="ur_evento" />
+        </EntityType>
+        <Association Name="FK_ur_tipoEvento_ur_evento">
+          <End Role="ur_evento" Type="Self.ur_evento" Multiplicity="1" />
+          <End Role="ur_tipoEvento" Type="Self.ur_tipoEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ur_evento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ur_tipoEvento">
+              <PropertyRef Name="idEvento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UdecReportEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ur_evento" EntityType="Self.ur_evento" />
+          <EntitySet Name="ur_tipoEvento" EntityType="Self.ur_tipoEvento" />
+          <AssociationSet Name="FK_ur_tipoEvento_ur_evento" Association="Self.FK_ur_tipoEvento_ur_evento">
+            <End Role="ur_evento" EntitySet="ur_evento" />
+            <End Role="ur_tipoEvento" EntitySet="ur_tipoEvento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UdecReportModelStoreContainer" CdmEntityContainer="UdecReportEntities">
+          <EntitySetMapping Name="ur_evento">
+            <EntityTypeMapping TypeName="UdecReportModel.ur_evento">
+              <MappingFragment StoreEntitySet="ur_evento">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ur_tipoEvento">
+            <EntityTypeMapping TypeName="UdecReportModel.ur_tipoEvento">
+              <MappingFragment StoreEntitySet="ur_tipoEvento">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idEvento" ColumnName="idEvento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UdecReportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ur_evento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ur_tipoEvento" Relationship="Self.FK_ur_tipoEvento_ur_evento" FromRole="ur_evento" ToRole="ur_tipoEvento" />
+  </EntityType>
+  <EntityType Name="ur_tipoEvento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idEvento" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ur_evento" Relationship="Self.FK_ur_tipoEvento_ur_evento" FromRole="ur_tipoEvento" ToRole="ur_evento" />
+  </EntityType>
+  <Association Name="FK_ur_tipoEvento_ur_evento">
+    <End Role="ur_evento" Type="Self.ur_evento" Multiplicity="1" />
+    <End Role="ur_tipoEvento" Type="Self.ur_tipoEvento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_evento">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ur_tipoEvento">
+        <PropertyRef Name="idEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UdecReportEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ur_evento" EntityType="Self.ur_evento" />
+    <EntitySet Name="ur_tipoEvento" EntityType="Self.ur_tipoEvento" />
+    <AssociationSet Name="FK_ur_tipoEvento_ur_evento" Association="Self.FK_ur_tipoEvento_ur_evento">
+      <End Role="ur_evento" EntitySet="ur_evento" />
+      <End Role="ur_tipoEvento" EntitySet="ur_tipoEvento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

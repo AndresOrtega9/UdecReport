@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UdecReportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ur_ddlAmbiente">
+    <Key>
+      <PropertyRef Name="idAmbiente" />
+    </Key>
+    <Property Name="idAmbiente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreAmbiente" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="idLugar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ur_ddlLugar">
+    <Key>
+      <PropertyRef Name="idLugar" />
+    </Key>
+    <Property Name="idLugar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreLugar" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="idZona" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ur_ddlZona">
+    <Key>
+      <PropertyRef Name="idZona" />
+    </Key>
+    <Property Name="idZona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreZona" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ur_evento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ur_imagenR">
+    <Key>
+      <PropertyRef Name="idImagen" />
+    </Key>
+    <Property Name="idImagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rutaImagen" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ur_reportes">
+    <Key>
+      <PropertyRef Name="idReportes" />
+    </Key>
+    <Property Name="idReportes" Type="int" Nullable="false" />
+    <Property Name="idEvento" Type="int" Nullable="false" />
+    <Property Name="idTipo" Type="int" Nullable="false" />
+    <Property Name="idZona" Type="int" Nullable="false" />
+    <Property Name="idLugar" Type="int" Nullable="false" />
+    <Property Name="idAmbiente" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ur_tipoEvento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="idEvento" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ur_ddlAmbiente_ur_ddlLugar">
+    <End Role="ur_ddlLugar" Type="Self.ur_ddlLugar" Multiplicity="1" />
+    <End Role="ur_ddlAmbiente" Type="Self.ur_ddlAmbiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_ddlLugar">
+        <PropertyRef Name="idLugar" />
+      </Principal>
+      <Dependent Role="ur_ddlAmbiente">
+        <PropertyRef Name="idLugar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ur_ddlLugar_ur_ddlZona">
+    <End Role="ur_ddlZona" Type="Self.ur_ddlZona" Multiplicity="1" />
+    <End Role="ur_ddlLugar" Type="Self.ur_ddlLugar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_ddlZona">
+        <PropertyRef Name="idZona" />
+      </Principal>
+      <Dependent Role="ur_ddlLugar">
+        <PropertyRef Name="idZona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ur_reportes_ur_reportes">
+    <End Role="ur_reportes" Type="Self.ur_reportes" Multiplicity="1" />
+    <End Role="ur_reportes1" Type="Self.ur_reportes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ur_reportes">
+        <PropertyRef Name="idReportes" />
+      </Principal>
+      <Dependent Role="ur_reportes1">
+        <PropertyRef Name="idReportes" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ur_tipoEvento_ur_evento">
+    <End Role="ur_evento" Type="Self.ur_evento" Multiplicity="1" />
+    <End Role="ur_tipoEvento" Type="Self.ur_tipoEvento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_evento">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ur_tipoEvento">
+        <PropertyRef Name="idEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UdecReportModelStoreContainer">
+    <EntitySet Name="ur_ddlAmbiente" EntityType="Self.ur_ddlAmbiente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ur_ddlLugar" EntityType="Self.ur_ddlLugar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ur_ddlZona" EntityType="Self.ur_ddlZona" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ur_evento" EntityType="Self.ur_evento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ur_imagenR" EntityType="Self.ur_imagenR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ur_reportes" EntityType="Self.ur_reportes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ur_tipoEvento" EntityType="Self.ur_tipoEvento" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ur_ddlAmbiente_ur_ddlLugar" Association="Self.FK_ur_ddlAmbiente_ur_ddlLugar">
+      <End Role="ur_ddlLugar" EntitySet="ur_ddlLugar" />
+      <End Role="ur_ddlAmbiente" EntitySet="ur_ddlAmbiente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ur_ddlLugar_ur_ddlZona" Association="Self.FK_ur_ddlLugar_ur_ddlZona">
+      <End Role="ur_ddlZona" EntitySet="ur_ddlZona" />
+      <End Role="ur_ddlLugar" EntitySet="ur_ddlLugar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ur_reportes_ur_reportes" Association="Self.FK_ur_reportes_ur_reportes">
+      <End Role="ur_reportes" EntitySet="ur_reportes" />
+      <End Role="ur_reportes1" EntitySet="ur_reportes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ur_tipoEvento_ur_evento" Association="Self.FK_ur_tipoEvento_ur_evento">
+      <End Role="ur_evento" EntitySet="ur_evento" />
+      <End Role="ur_tipoEvento" EntitySet="ur_tipoEvento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

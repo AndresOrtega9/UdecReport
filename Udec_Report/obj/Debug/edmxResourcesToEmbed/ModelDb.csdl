@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UdecReportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ur_evento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ur_tipoEvento" Relationship="Self.FK_ur_tipoEvento_ur_evento" FromRole="ur_evento" ToRole="ur_tipoEvento" />
+  </EntityType>
+  <EntityType Name="ur_tipoEvento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idEvento" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ur_evento" Relationship="Self.FK_ur_tipoEvento_ur_evento" FromRole="ur_tipoEvento" ToRole="ur_evento" />
+  </EntityType>
+  <Association Name="FK_ur_tipoEvento_ur_evento">
+    <End Role="ur_evento" Type="Self.ur_evento" Multiplicity="1" />
+    <End Role="ur_tipoEvento" Type="Self.ur_tipoEvento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_evento">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ur_tipoEvento">
+        <PropertyRef Name="idEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RptsUdecReportEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ur_evento" EntityType="Self.ur_evento" />
+    <EntitySet Name="ur_tipoEvento" EntityType="Self.ur_tipoEvento" />
+    <AssociationSet Name="FK_ur_tipoEvento_ur_evento" Association="Self.FK_ur_tipoEvento_ur_evento">
+      <End Role="ur_evento" EntitySet="ur_evento" />
+      <End Role="ur_tipoEvento" EntitySet="ur_tipoEvento" />
+    </AssociationSet>
+    <EntitySet Name="ur_ddlAmbiente" EntityType="UdecReportModel.ur_ddlAmbiente" />
+    <EntitySet Name="ur_ddlLugar" EntityType="UdecReportModel.ur_ddlLugar" />
+    <EntitySet Name="ur_ddlZona" EntityType="UdecReportModel.ur_ddlZona" />
+    <AssociationSet Name="FK_ur_ddlAmbiente_ur_ddlLugar" Association="UdecReportModel.FK_ur_ddlAmbiente_ur_ddlLugar">
+      <End Role="ur_ddlLugar" EntitySet="ur_ddlLugar" />
+      <End Role="ur_ddlAmbiente" EntitySet="ur_ddlAmbiente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ur_ddlLugar_ur_ddlZona" Association="UdecReportModel.FK_ur_ddlLugar_ur_ddlZona">
+      <End Role="ur_ddlZona" EntitySet="ur_ddlZona" />
+      <End Role="ur_ddlLugar" EntitySet="ur_ddlLugar" />
+    </AssociationSet>
+    <EntitySet Name="ur_imagenR" EntityType="UdecReportModel.ur_imagenR" />
+    <EntitySet Name="ur_reportes" EntityType="UdecReportModel.ur_reportes" />
+  </EntityContainer>
+  <EntityType Name="ur_ddlAmbiente">
+    <Key>
+      <PropertyRef Name="idAmbiente" />
+    </Key>
+    <Property Name="idAmbiente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreAmbiente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idLugar" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ur_ddlLugar" Relationship="UdecReportModel.FK_ur_ddlAmbiente_ur_ddlLugar" FromRole="ur_ddlAmbiente" ToRole="ur_ddlLugar" />
+  </EntityType>
+  <EntityType Name="ur_ddlLugar">
+    <Key>
+      <PropertyRef Name="idLugar" />
+    </Key>
+    <Property Name="idLugar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreLugar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idZona" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ur_ddlAmbiente" Relationship="UdecReportModel.FK_ur_ddlAmbiente_ur_ddlLugar" FromRole="ur_ddlLugar" ToRole="ur_ddlAmbiente" />
+    <NavigationProperty Name="ur_ddlZona" Relationship="UdecReportModel.FK_ur_ddlLugar_ur_ddlZona" FromRole="ur_ddlLugar" ToRole="ur_ddlZona" />
+  </EntityType>
+  <EntityType Name="ur_ddlZona">
+    <Key>
+      <PropertyRef Name="idZona" />
+    </Key>
+    <Property Name="idZona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreZona" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ur_ddlLugar" Relationship="UdecReportModel.FK_ur_ddlLugar_ur_ddlZona" FromRole="ur_ddlZona" ToRole="ur_ddlLugar" />
+  </EntityType>
+  <Association Name="FK_ur_ddlAmbiente_ur_ddlLugar">
+    <End Type="UdecReportModel.ur_ddlLugar" Role="ur_ddlLugar" Multiplicity="1" />
+    <End Type="UdecReportModel.ur_ddlAmbiente" Role="ur_ddlAmbiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_ddlLugar">
+        <PropertyRef Name="idLugar" />
+      </Principal>
+      <Dependent Role="ur_ddlAmbiente">
+        <PropertyRef Name="idLugar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ur_ddlLugar_ur_ddlZona">
+    <End Type="UdecReportModel.ur_ddlZona" Role="ur_ddlZona" Multiplicity="1" />
+    <End Type="UdecReportModel.ur_ddlLugar" Role="ur_ddlLugar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_ddlZona">
+        <PropertyRef Name="idZona" />
+      </Principal>
+      <Dependent Role="ur_ddlLugar">
+        <PropertyRef Name="idZona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ur_imagenR">
+    <Key>
+      <PropertyRef Name="idImagen" />
+    </Key>
+    <Property Name="idImagen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="rutaImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ur_reportes">
+    <Key>
+      <PropertyRef Name="idReportes" />
+    </Key>
+    <Property Name="idReportes" Type="Int32" Nullable="false" />
+    <Property Name="idEvento" Type="Int32" Nullable="false" />
+    <Property Name="idTipo" Type="Int32" Nullable="false" />
+    <Property Name="idZona" Type="Int32" Nullable="false" />
+    <Property Name="idLugar" Type="Int32" Nullable="false" />
+    <Property Name="idAmbiente" Type="Int32" Nullable="false" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

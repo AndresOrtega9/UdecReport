@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UdecReportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ur_evento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ur_tipoEvento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="idEvento" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ur_tipoEvento_ur_evento">
+    <End Role="ur_evento" Type="Self.ur_evento" Multiplicity="1" />
+    <End Role="ur_tipoEvento" Type="Self.ur_tipoEvento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ur_evento">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ur_tipoEvento">
+        <PropertyRef Name="idEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UdecReportModelStoreContainer">
+    <EntitySet Name="ur_evento" EntityType="Self.ur_evento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ur_tipoEvento" EntityType="Self.ur_tipoEvento" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ur_tipoEvento_ur_evento" Association="Self.FK_ur_tipoEvento_ur_evento">
+      <End Role="ur_evento" EntitySet="ur_evento" />
+      <End Role="ur_tipoEvento" EntitySet="ur_tipoEvento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

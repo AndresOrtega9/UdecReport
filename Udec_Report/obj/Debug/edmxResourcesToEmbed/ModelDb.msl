@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UdecReportModelStoreContainer" CdmEntityContainer="RptsUdecReportEntities">
+    <EntitySetMapping Name="ur_evento">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_evento">
+        <MappingFragment StoreEntitySet="ur_evento">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ur_tipoEvento">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_tipoEvento">
+        <MappingFragment StoreEntitySet="ur_tipoEvento">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idEvento" ColumnName="idEvento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ur_ddlAmbiente">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_ddlAmbiente">
+        <MappingFragment StoreEntitySet="ur_ddlAmbiente">
+          <ScalarProperty Name="idLugar" ColumnName="idLugar" />
+          <ScalarProperty Name="nombreAmbiente" ColumnName="nombreAmbiente" />
+          <ScalarProperty Name="idAmbiente" ColumnName="idAmbiente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ur_ddlLugar">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_ddlLugar">
+        <MappingFragment StoreEntitySet="ur_ddlLugar">
+          <ScalarProperty Name="idZona" ColumnName="idZona" />
+          <ScalarProperty Name="nombreLugar" ColumnName="nombreLugar" />
+          <ScalarProperty Name="idLugar" ColumnName="idLugar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ur_ddlZona">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_ddlZona">
+        <MappingFragment StoreEntitySet="ur_ddlZona">
+          <ScalarProperty Name="nombreZona" ColumnName="nombreZona" />
+          <ScalarProperty Name="idZona" ColumnName="idZona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ur_imagenR">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_imagenR">
+        <MappingFragment StoreEntitySet="ur_imagenR">
+          <ScalarProperty Name="rutaImagen" ColumnName="rutaImagen" />
+          <ScalarProperty Name="idImagen" ColumnName="idImagen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ur_reportes">
+      <EntityTypeMapping TypeName="UdecReportModel.ur_reportes">
+        <MappingFragment StoreEntitySet="ur_reportes">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="idAmbiente" ColumnName="idAmbiente" />
+          <ScalarProperty Name="idLugar" ColumnName="idLugar" />
+          <ScalarProperty Name="idZona" ColumnName="idZona" />
+          <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+          <ScalarProperty Name="idEvento" ColumnName="idEvento" />
+          <ScalarProperty Name="idReportes" ColumnName="idReportes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

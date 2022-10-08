@@ -1,0 +1,86 @@
+﻿@model Udec_Report.Models.Evento
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("CreateReport", "CreateReport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="form-group">
+            <br />
+            @Html.Label("Evento")
+            @Html.DropDownListFor(m => m.EventoId, Model.Eventos, new { onchange = "document.forms[0].submit();" })
+        </div>
+        <div class="form-group">
+            <br />
+            @Html.Label("Tipo")
+            @Html.DropDownListFor(m => m.TipoId, Model.Tipos)
+        </div>
+
+        <div class="form-group">
+            <br />
+            @Html.Label("Zona")
+            @Html.DropDownListFor(m => m.ZonaId, Model.Zonas, new { onchange = "document.forms[0].submit();" })
+        </div>
+
+        <div class="form-group">
+            <br />
+            @Html.Label("Lugar")
+            @Html.DropDownListFor(m => m.LugarId, Model.Lugares, new { onchange = "document.forms[0].submit();" })
+        </div>
+
+        <div class="form-group">
+            <br />
+            @Html.Label("Ambiente")
+            @Html.DropDownListFor(m => m.AmbienteId, Model.Ambientes)
+        </div>
+
+        <div>
+            <br />
+            @Html.LabelFor(d => d.rutaImagen,new { @class="control-label col-md-2"})
+            <input type="file" name="ImageFile"/>
+            @*@Html.TextBoxFor(d => d.ImageFile, new { type = "file", accept = ".jpg" })*@
+
+        </div>
+
+            <div class="form-group" style="text-align:center;">
+                <input type="submit" class="btn-success" value="Guardar" />
+            </div>
+
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        if ($("#TipoId option").length > 1) {
+            $("#TipoId").removeAttr("disabled");
+        }
+    });
+</script>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        if ($("#LugarId option").length > 1) {
+            $("#LugarId").removeAttr("disabled");
+        }
+
+        if ($("#AmbienteId option").length > 1) {
+            $("#AmbienteId").removeAttr("disabled");
+        }
+
+        if ($("#ZonaId").val() != "" && $("#LugarId").val() != "" && $("#AmbienteId").val() != "") {
+            var message = "zona: " + $("#ZonaId option:selected").text();
+            message += "\nlugar: " + $("#LugarId option:selected").text();
+            message += "\nambiente: " + $("#AmbienteId option:selected").text();
+            alert(message);
+        }
+    });
+</script>
